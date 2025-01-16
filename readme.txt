@@ -2,8 +2,8 @@
 Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: captcha
-Requires at least: 6.4
-Tested up to: 6.5
+Requires at least: 6.6
+Tested up to: 6.7
 Stable tag: 2.2
 Requires PHP: 7.4
 License: GPLv2 or later
