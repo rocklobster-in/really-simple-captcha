@@ -210,9 +210,7 @@ class ReallySimpleCaptcha {
 			$salt = $code[0];
 			$hash = $code[1];
 
-			if ( hash_equals( $hash, hash_hmac( 'sha256', $response, $salt ) ) ) {
-				return true;
-			}
+			return hash_equals( $hash, hash_hmac( 'sha256', $response, $salt ) );
 		}
 
 		return false;
