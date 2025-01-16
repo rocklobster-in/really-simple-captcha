@@ -176,7 +176,7 @@ class ReallySimpleCaptcha {
 		if ( $fh = @fopen( $answer_file, 'w' ) ) {
 			$word = strtoupper( $word );
 			$salt = wp_generate_password( 64 );
-			$hash = hash_hmac( 'md5', $word, $salt );
+			$hash = hash_hmac( 'sha256', $word, $salt );
 			$code = $salt . '|' . $hash;
 			fwrite( $fh, $code );
 			fclose( $fh );
@@ -210,9 +210,7 @@ class ReallySimpleCaptcha {
 			$salt = $code[0];
 			$hash = $code[1];
 
-			if ( hash_equals( $hash, hash_hmac( 'md5', $response, $salt ) ) ) {
-				return true;
-			}
+			return hash_equals( $hash, hash_hmac( 'sha256', $response, $salt ) );
 		}
 
 		return false;
