@@ -85,7 +85,7 @@ class ReallySimpleCaptcha {
 		$word = '';
 
 		for ( $i = 0; $i < $this->char_length; $i++ ) {
-			$pos = mt_rand( 0, strlen( $this->chars ) - 1 );
+			$pos = wp_rand( 0, strlen( $this->chars ) - 1 );
 			$char = $this->chars[$pos];
 			$word .= $char;
 		}
@@ -121,15 +121,15 @@ class ReallySimpleCaptcha {
 
 			imagefill( $im, 0, 0, $bg );
 
-			$x = $this->base[0] + mt_rand( -2, 2 );
+			$x = $this->base[0] + wp_rand( -2, 2 );
 
 			for ( $i = 0; $i < strlen( $word ); $i++ ) {
 				$font = $this->fonts[array_rand( $this->fonts )];
 				$font = wp_normalize_path( $font );
 
 				imagettftext(
-					$im, $this->font_size, mt_rand( -12, 12 ), $x,
-					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $word[$i]
+					$im, $this->font_size, wp_rand( -12, 12 ), $x,
+					$this->base[1] + wp_rand( -2, 2 ), $fg, $font, $word[$i]
 				);
 
 				$x += $this->font_char_width;
