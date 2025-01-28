@@ -14,7 +14,11 @@
 
 define( 'REALLYSIMPLECAPTCHA_VERSION', '2.4-dev' );
 
+require_once path_join( __DIR__, 'includes/filesystem.php' );
+
 class ReallySimpleCaptcha {
+
+	use RSC_Filesystem;
 
 	public $chars;
 	public $char_length;
@@ -74,6 +78,8 @@ class ReallySimpleCaptcha {
 
 		/* Mode of temporary answer text files */
 		$this->answer_file_mode = 0640;
+
+		$this->connect();
 	}
 
 	/**
