@@ -179,16 +179,12 @@ class ReallySimpleCaptcha {
 		$answer_file = path_join( $dir, sanitize_file_name( $prefix . '.txt' ) );
 		$answer_file = wp_normalize_path( $answer_file );
 
-		if ( $fh = @fopen( $answer_file, 'w' ) ) {
-			$word = strtoupper( $word );
-			$salt = wp_generate_password( 64 );
-			$hash = hash_hmac( 'sha256', $word, $salt );
-			$code = $salt . '|' . $hash;
-			fwrite( $fh, $code );
-			fclose( $fh );
-		}
+		$word = strtoupper( $word );
+		$salt = wp_generate_password( 64 );
+		$hash = hash_hmac( 'sha256', $word, $salt );
+		$code = $salt . '|' . $hash;
 
-		@chmod( $answer_file, $this->answer_file_mode );
+		$this->put_contents( $answer_file, $code, $this->answer_file_mode );
 	}
 
 	/**
@@ -323,28 +319,26 @@ class ReallySimpleCaptcha {
 			}
 		}
 
-		if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
-			fwrite( $handle, "# Apache 2.4+\n" );
-			fwrite( $handle, "<IfModule authz_core_module>\n" );
-			fwrite( $handle, "    Require all denied\n" );
-			fwrite( $handle, '    <FilesMatch "^\w+\.(jpe?g|gif|png)$">' . "\n" );
-			fwrite( $handle, "        Require all granted\n" );
-			fwrite( $handle, "    </FilesMatch>\n" );
-			fwrite( $handle, "</IfModule>\n" );
-			fwrite( $handle, "\n" );
-			fwrite( $handle, "# Apache 2.2\n" );
-			fwrite( $handle, "<IfModule !authz_core_module>\n" );
-			fwrite( $handle, "    Order deny,allow\n" );
-			fwrite( $handle, "    Deny from all\n" );
-			fwrite( $handle, '    <FilesMatch "^\w+\.(jpe?g|gif|png)$">' . "\n" );
-			fwrite( $handle, "        Allow from all\n" );
-			fwrite( $handle, "    </FilesMatch>\n" );
-			fwrite( $handle, "</IfModule>\n" );
+		$htaccess_body = <<<'EOD'
+# Apache 2.4+
+<IfModule authz_core_module>
+    Require all denied
+    <FilesMatch "^\w+\.(jpe?g|gif|png)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
 
-			fclose( $handle );
-		}
+# Apache 2.2
+<IfModule !authz_core_module>
+    Order deny,allow
+    Deny from all
+    <FilesMatch "^\w+\.(jpe?g|gif|png)$">
+        Allow from all
+    </FilesMatch>
+</IfModule>
+EOD;
 
-		return true;
+		return $this->put_contents( $htaccess_file, $htaccess_body, 0644 );
 	}
 
 }

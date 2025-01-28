@@ -24,4 +24,8 @@ trait RSC_Filesystem {
 		}
 	}
 
+	public function put_contents( $file, $contents, $mode ) {
+		return $this->filesystem->put_contents( $file, $contents, $mode );
+	}
+
 }
