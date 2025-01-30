@@ -34,6 +34,10 @@ trait RSC_Filesystem {
 		}
 	}
 
+	public function chmod( $file, $mode, $recursive = false ) {
+		return $this->filesystem->chmod( $file, $mode, $recursive );
+	}
+
 	public function get_contents( $file ) {
 		return $this->filesystem->get_contents( $file );
 	}

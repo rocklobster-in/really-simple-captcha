@@ -160,7 +160,8 @@ class ReallySimpleCaptcha {
 			}
 
 			imagedestroy( $im );
-			@chmod( $file, $this->file_mode );
+
+			$this->chmod( $file, $this->file_mode );
 		}
 
 		$this->generate_answer_file( $prefix, $word );
@@ -274,7 +275,7 @@ class ReallySimpleCaptcha {
 
 				if ( ( $stat['mtime'] + $minutes * MINUTE_IN_SECONDS ) < time() ) {
 					if ( ! @unlink( $file ) ) {
-						@chmod( $file, 0644 );
+						$this->chmod( $file, 0644 );
 						@unlink( $file );
 					}
 
