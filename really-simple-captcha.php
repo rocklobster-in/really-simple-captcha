@@ -206,8 +206,7 @@ class ReallySimpleCaptcha {
 		$filename = sanitize_file_name( $prefix . '.txt' );
 		$file = wp_normalize_path( path_join( $dir, $filename ) );
 
-		if ( is_readable( $file )
-		and $code = file_get_contents( $file ) ) {
+		if ( is_readable( $file ) and $code = $this->get_contents( $file ) ) {
 			$code = explode( '|', $code, 2 );
 			$salt = $code[0];
 			$hash = $code[1];
