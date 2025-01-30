@@ -247,14 +247,11 @@ class ReallySimpleCaptcha {
 		$dir = trailingslashit( $this->tmp_dir );
 		$dir = wp_normalize_path( $dir );
 
-		if ( ! is_dir( $dir )
-		or ! is_readable( $dir ) ) {
-			return false;
-		}
-
-		$is_win = ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) );
-
-		if ( ! ( $is_win ? win_is_writable( $dir ) : is_writable( $dir ) ) ) {
+		if (
+			! is_dir( $dir ) or
+			! is_readable( $dir ) or
+			! wp_is_writable( $dir )
+		) {
 			return false;
 		}
 
