@@ -16,7 +16,10 @@ trait RSC_Filesystem {
 		ob_end_clean();
 
 		if ( false === $credentials or ! WP_Filesystem( $credentials ) ) {
-			wp_trigger_error( __FUNCTION__, __( 'Could not access filesystem.' ) );
+			wp_trigger_error(
+				__FUNCTION__,
+				__( "Could not access filesystem.", 'really-simple-captcha' )
+			);
 		}
 
 		if ( $wp_filesystem instanceof WP_Filesystem_Base ) {
