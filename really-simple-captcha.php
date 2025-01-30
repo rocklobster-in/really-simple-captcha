@@ -232,7 +232,7 @@ class ReallySimpleCaptcha {
 			$file = wp_normalize_path( path_join( $dir, $filename ) );
 
 			if ( is_file( $file ) ) {
-				@unlink( $file );
+				$this->delete( $file );
 			}
 		}
 	}
@@ -274,9 +274,9 @@ class ReallySimpleCaptcha {
 				}
 
 				if ( ( $stat['mtime'] + $minutes * MINUTE_IN_SECONDS ) < time() ) {
-					if ( ! @unlink( $file ) ) {
+					if ( ! $this->delete( $file ) ) {
 						$this->chmod( $file, 0644 );
-						@unlink( $file );
+						$this->delete( $file );
 					}
 
 					$count += 1;
