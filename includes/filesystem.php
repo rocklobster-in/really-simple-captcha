@@ -17,10 +17,20 @@ trait RSC_Filesystem {
 
 		if ( false === $credentials or ! WP_Filesystem( $credentials ) ) {
 			wp_trigger_error( __FUNCTION__, __( 'Could not access filesystem.' ) );
+		}
 
-			$this->filesystem = new WP_Filesystem_Direct( array() );
-		} else {
+		if ( $wp_filesystem instanceof WP_Filesystem_Base ) {
 			$this->filesystem = $wp_filesystem;
+		} else {
+			$this->filesystem = new WP_Filesystem_Direct( 1 );
+		}
+
+		if ( ! defined( 'FS_CHMOD_DIR' ) ) {
+			define( 'FS_CHMOD_DIR', fileperms( ABSPATH ) & 0777 | 0755 );
+		}
+
+		if ( ! defined( 'FS_CHMOD_FILE' ) ) {
+			define( 'FS_CHMOD_FILE', fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 );
 		}
 	}
 
