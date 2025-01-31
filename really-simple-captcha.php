@@ -20,67 +20,110 @@ class ReallySimpleCaptcha {
 
 	use ReallySimpleCaptcha_Filesystem;
 
-	public $chars;
-	public $char_length;
-	public $fonts;
-	public $tmp_dir;
-	public $img_size;
-	public $bg;
-	public $fg;
-	public $base;
-	public $font_size;
-	public $font_char_width;
-	public $img_type;
-	public $file_mode;
-	public $answer_file_mode;
+	/**
+	 * Characters available in a CAPTCHA image.
+	 *
+	 * @var string All characters that can be used in a CAPTCHA image.
+	 */
+	public $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
+	/**
+	 * Number of characters that are displayed in a CAPTCHA image.
+	 *
+	 * @var int
+	 */
+	public $char_length = 4;
+
+	/**
+	 * Font paths. Randomly picked up from the list per character.
+	 *
+	 * @var array
+	 */
+	public $fonts = array(
+		__DIR__ . '/gentium/GenBkBasR.ttf',
+		__DIR__ . '/gentium/GenBkBasI.ttf',
+		__DIR__ . '/gentium/GenBkBasBI.ttf',
+		__DIR__ . '/gentium/GenBkBasB.ttf',
+	);
+
+	/**
+	 * Temp directory for CAPTCHA images and text files.
+	 *
+	 * @var string
+	 */
+	public $tmp_dir = __DIR__ . '/tmp';
+
+	/**
+	 * Array of CAPTCHA image size.
+	 *
+	 * @var array 0: Width, 1: Height (in pixels)
+	 */
+	public $img_size = array( 72, 24 );
+
+	/**
+	 * Background color of a CAPTCHA image in RGB-notation.
+	 *
+	 * @var array 0: R, 1: G, 2: B (each within 0-255)
+	 */
+	public $bg = array( 255, 255, 255 );
+
+	/**
+	 * Foreground (character) color of a CAPTCHA image in RGB-notation.
+	 *
+	 * @var array 0: R, 1: G, 2: B (each within 0-255)
+	 */
+	public $fg = array( 0, 0, 0 );
+
+	/**
+	 * Coordinates for a text in an image. I don't know the meaning. Just adjust.
+	 *
+	 * @var array
+	 */
+	public $base = array( 6, 18 );
+
+	/**
+	 * Font size.
+	 *
+	 * @var int
+	 */
+	public $font_size = 14;
+
+	/**
+	 * Width of a character.
+	 *
+	 * @var int
+	 */
+	public $font_char_width = 15;
+
+	/**
+	 * Image type.
+	 *
+	 * @var string png, gif, or jpeg.
+	 */
+	public $img_type = 'png';
+
+	/**
+	 * File mode set for a CAPTCHA image.
+	 *
+	 * @var int
+	 */
+	public $file_mode = 0644;
+
+	/**
+	 * File mode set for an answer text file.
+	 *
+	 * @var int
+	 */
+	public $answer_file_mode = 0640;
+
+
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
-		/* Characters available in images */
-		$this->chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-
-		/* Length of a word in an image */
-		$this->char_length = 4;
-
-		/* Array of fonts. Randomly picked up per character */
-		$this->fonts = array(
-			path_join( __DIR__, 'gentium/GenBkBasR.ttf' ),
-			path_join( __DIR__, 'gentium/GenBkBasI.ttf' ),
-			path_join( __DIR__, 'gentium/GenBkBasBI.ttf' ),
-			path_join( __DIR__, 'gentium/GenBkBasB.ttf' ),
-		);
-
-		/* Directory temporary keeping CAPTCHA images and corresponding text files */
-		$this->tmp_dir = path_join( __DIR__, 'tmp' );
-
-		/* Array of CAPTCHA image size. Width and height */
-		$this->img_size = array( 72, 24 );
-
-		/* Background color of CAPTCHA image. RGB color 0-255 */
-		$this->bg = array( 255, 255, 255 );
-
-		/* Foreground (character) color of CAPTCHA image. RGB color 0-255 */
-		$this->fg = array( 0, 0, 0 );
-
-		/* Coordinates for a text in an image. I don't know the meaning. Just adjust. */
-		$this->base = array( 6, 18 );
-
-		/* Font size */
-		$this->font_size = 14;
-
-		/* Width of a character */
-		$this->font_char_width = 15;
-
-		/* Image type. 'png', 'gif' or 'jpeg' */
-		$this->img_type = 'png';
-
-		/* Mode of temporary image files */
-		$this->file_mode = 0644;
-
-		/* Mode of temporary answer text files */
-		$this->answer_file_mode = 0640;
-
 		$this->connect();
 	}
+
 
 	/**
 	 * Generate and return a random word.
@@ -98,6 +141,7 @@ class ReallySimpleCaptcha {
 
 		return $word;
 	}
+
 
 	/**
 	 * Generate CAPTCHA image and corresponding answer file.
@@ -169,6 +213,7 @@ class ReallySimpleCaptcha {
 		return $filename;
 	}
 
+
 	/**
 	 * Generate answer file corresponding to CAPTCHA image.
 	 *
@@ -187,6 +232,7 @@ class ReallySimpleCaptcha {
 
 		$this->put_contents( $answer_file, $code, $this->answer_file_mode );
 	}
+
 
 	/**
 	 * Check a response against the code kept in the temporary file.
@@ -218,6 +264,7 @@ class ReallySimpleCaptcha {
 		return false;
 	}
 
+
 	/**
 	 * Remove temporary files with given prefix.
 	 *
@@ -236,6 +283,7 @@ class ReallySimpleCaptcha {
 			}
 		}
 	}
+
 
 	/**
 	 * Clean up dead files older than given length of time.
@@ -265,8 +313,7 @@ class ReallySimpleCaptcha {
 
 				$file = wp_normalize_path( path_join( $dir, $filename ) );
 
-				if ( ! file_exists( $file )
-				or ! $stat = stat( $file ) ) {
+				if ( ! file_exists( $file ) or ! $stat = stat( $file ) ) {
 					continue;
 				}
 
@@ -289,6 +336,7 @@ class ReallySimpleCaptcha {
 
 		return $count;
 	}
+
 
 	/**
 	 * Make a temporary directory and generate .htaccess file in it.
