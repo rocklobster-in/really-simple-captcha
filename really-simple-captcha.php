@@ -316,7 +316,7 @@ class ReallySimpleCaptcha {
 			}
 		}
 
-		$htaccess_body = <<<'EOD'
+		$htaccess_body = '
 # Apache 2.4+
 <IfModule authz_core_module>
     Require all denied
@@ -333,9 +333,9 @@ class ReallySimpleCaptcha {
         Allow from all
     </FilesMatch>
 </IfModule>
-EOD;
+';
 
-		return $this->put_contents( $htaccess_file, $htaccess_body, 0644 );
+		return $this->put_contents( $htaccess_file, ltrim( $htaccess_body ), 0644 );
 	}
 
 }
