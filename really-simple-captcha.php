@@ -18,7 +18,7 @@ require_once path_join( __DIR__, 'includes/filesystem.php' );
 
 class ReallySimpleCaptcha {
 
-	use RSC_Filesystem;
+	use ReallySimpleCaptcha_Filesystem;
 
 	public $chars;
 	public $char_length;

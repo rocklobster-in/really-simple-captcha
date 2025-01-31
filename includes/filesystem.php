@@ -1,6 +1,6 @@
 <?php
 
-trait RSC_Filesystem {
+trait ReallySimpleCaptcha_Filesystem {
 
 	private $filesystem;
 
