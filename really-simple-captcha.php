@@ -14,7 +14,7 @@
 
 define( 'REALLYSIMPLECAPTCHA_VERSION', '2.4-dev' );
 
-require_once path_join( __DIR__, 'includes/filesystem.php' );
+require_once __DIR__ . '/includes/filesystem.php';
 
 class ReallySimpleCaptcha {
 
