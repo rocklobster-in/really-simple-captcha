@@ -92,13 +92,9 @@ If you have any further questions, please submit them [to the support forum](htt
 
 == Changelog ==
 
-= 2.3 =
+= 2.4 =
 
-* Bumps up the minimum required WordPress version to 6.4.
-
-= 2.2 =
-
-* Bumps up the minimum required WordPress version to 6.1.
-* Bumps up the minimum required PHP version to 7.4.
-* Replaces `ReallySimpleCaptcha::normalize_path()` with `wp_normalize_path()`.
-* Updates Apache directives.
+* Bumps up the minimum required WordPress version to 6.6.
+* Introduces the ReallySimpleCaptcha_Filesystem trait.
+* Uses SHA-256 as the hash algorithm.
+* Uses `wp_rand()` instead of `mt_rand()`.
