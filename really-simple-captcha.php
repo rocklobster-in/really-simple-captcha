@@ -12,6 +12,8 @@
  * Requires PHP: 7.4
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 define( 'REALLYSIMPLECAPTCHA_VERSION', '2.4' );
 
 require_once __DIR__ . '/includes/filesystem.php';
