@@ -1,5 +1,5 @@
 === Really Simple CAPTCHA ===
-Contributors: takayukister
+Contributors: rocklobsterinc, takayukister
 Donate link: https://contactform7.com/donate/
 Tags: captcha
 Requires at least: 6.6
