@@ -8,8 +8,8 @@
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Version: 2.4
- * Requires at least: 6.6
- * Requires PHP: 7.4
+ * Requires at least: 7.1
+ * Requires PHP: 8.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
