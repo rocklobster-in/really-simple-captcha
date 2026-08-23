@@ -3,8 +3,8 @@
  * Plugin Name: Really Simple CAPTCHA
  * Plugin URI: https://contactform7.com/captcha/
  * Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
- * Author: Takayuki Miyoshi
- * Author URI: https://ideasilo.wordpress.com/
+ * Author: Rock Lobster Inc.
+ * Author URI: https://github.com/rocklobster-in/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Version: 2.4
