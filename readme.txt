@@ -92,6 +92,12 @@ If you have any further questions, please submit them [to the support forum](htt
 
 == Changelog ==
 
+= 2.5 =
+
+* Bumps up the minimum required WordPress version to 7.1.
+* Bumps up the minimum required PHP version to 8.3.
+* Changes the author name to Rock Lobster Inc. (a Japan-based company that the original author, Takayuki Miyoshi, owns)
+
 = 2.4 =
 
 * Bumps up the minimum required WordPress version to 6.6.
