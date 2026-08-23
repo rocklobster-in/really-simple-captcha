@@ -4,10 +4,10 @@ Tags: captcha
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://contactform7.com/donate/
-Stable tag: 2.3
+Stable tag: 2.4
 Requires at least: 7.1
 Requires PHP: 8.3
-Tested up to: 6.7
+Tested up to: 7.1
 
 Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
 
